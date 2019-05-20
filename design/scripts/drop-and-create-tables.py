@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
 
+'''
+Drops all data table definitions and recreate new ones.
+
+NOTE You will lost all your data!
+'''
+
 import toml
 import MySQLdb
 
-dbconfig = toml.load('../config/config.toml')['database']
+dbconfig = toml.load('../config/db.toml')
 
 conn = MySQLdb.connect(
     host=dbconfig['connection']['host'],

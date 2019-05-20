@@ -16,3 +16,18 @@
 - 收银员身份及口令管理。
 
 设计一个 C/S 模式的系统实现上述功能。
+
+### Usage
+
+1. 手动在 MySQL 中创建数据库，并更新 `config/db.toml` 中信息。
+2. 进入 `scripts` 目录，运行脚本 `drop-and-create-tables.py`，创建数据表结构及服务运行所有依赖的触发器等。
+3. TODO
+
+### Requirements
+
+- MySQL
+
+__Python Packages__
+
+- toml
+- mysqlclient

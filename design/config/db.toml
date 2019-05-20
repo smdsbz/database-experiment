@@ -1,4 +1,4 @@
-[database.connection]
+[connection]
     host = 'localhost'
     user = 'localroot'
     passwd = '123456'
