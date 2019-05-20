@@ -1,0 +1,5 @@
+[database.connection]
+    host = 'localhost'
+    user = 'localroot'
+    passwd = '123456'
+    db = 'dbexp_shop'   # name of the database
