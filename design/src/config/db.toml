@@ -4,3 +4,8 @@
     charset = 'utf8'
     user = 'localroot'
     passwd = '123456'
+
+[[initial-data.Merchandise]]
+    name = '会员卡'
+    price = 50.00
+    # count = NULL

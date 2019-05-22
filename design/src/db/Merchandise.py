@@ -26,14 +26,18 @@ class MerchandiseDao(BaseMySQLDao):
             other   - ID of the merchandise.
         '''
         ids = [tup[0] for tup in self.select('id', name=merch)]
-        pass
+        if not ids:
+            return -1
+        if len(ids) > 1:
+            return -2
+        return ids[0][0]
 
     def update_info(self, merch: Union[int, str]) -> bool:
         if isinstance(merch, int):
             merchid = merch
         elif isinstance(merch, str):
             merchid = self.get_id_by_name(merch)
-        if merchid == 0:    # infos of VIP Card cannot be changed!
+        if merchid == self.get_id_by_name('会员卡'):    # infos of VIP Card cannot be changed!
             return False
 
         # TODO

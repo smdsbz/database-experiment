@@ -14,6 +14,7 @@ dbconfig = toml.load('config/db.toml')
 conn = MySQLdb.connect(**dbconfig['connection'])
 
 
+# Create data tables
 with conn.cursor() as cur:
 
     cur.execute('drop table if exists Shifts')
@@ -30,16 +31,12 @@ with conn.cursor() as cur:
             id          integer         auto_increment  comment '商品编号',
             name        varchar(64)     not null        comment '商品名称',
             price       decimal(6,2)    not null        comment '商品单价',
-            count       integer                         comment '库存数量（0 为不限量）',
+            count       integer                         comment '库存数量（NULL 为不限量）',
             primary key (id),
             check (price >= 0.00),
             index (name)
         )
     ''')
-    # 会员卡为常驻商品
-    cur.execute('''
-        insert into Merchandise (name, price) values (%s, %s)
-    ''', ('会员卡', 50.0))
 
     # 店员职务信息表
     cur.execute('''
@@ -125,3 +122,22 @@ with conn.cursor() as cur:
             check (sum_consume >= 0.00)
         )
     ''')
+
+    conn.commit()
+
+
+# Insert initial data
+with conn.cursor() as cur:
+
+    initial_data = dbconfig['initial-data']
+
+    for table, datas in initial_data.items():
+        for data in datas:
+            cols = data.keys()
+            cur.execute(f'''
+                insert into {table}
+                ({','.join(f'`{col}`' for col in cols)}) values
+                ({','.join('%s' for _ in cols)})
+            ''', tuple(data[col] for col in cols))
+
+    conn.commit()
