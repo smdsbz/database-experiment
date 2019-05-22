@@ -17,17 +17,32 @@
 
 设计一个 C/S 模式的系统实现上述功能。
 
-### Usage
+### 使用方法
 
-1. 手动在 MySQL 中创建数据库，并更新 `config/db.toml` 中信息。
-2. 进入 `scripts` 目录，运行脚本 `drop-and-create-tables.py`，创建数据表结构及服务运行所有依赖的触发器等。
+#### 运行方法
+
+0. 进入源码目录 `src/`。
+1. 手动在 MySQL 中创建数据库，并更新 `config/db.toml` 中数据库名称。
+2. （在源码根目录 `src/` 下）运行脚本 `drop-and-create-tables.py`，创建数据表结构及服务运行所有依赖的触发器等。
 3. TODO
 
-### Requirements
+#### 测试
 
+所有单元测试都位于 `src/test/` 中，使用命令
+
+```console
+$ python -m unittest test.[PKG] -v
+```
+
+运行包 `PKG` 的单元测试。
+
+#### 环境依赖
+
+- Python 3
 - MySQL
 
-__Python Packages__
+__Python 包__
 
 - toml
-- mysqlclient
+- [mysqlclient](https://github.com/PyMySQL/mysqlclient-python) 1.4.2
+- flask

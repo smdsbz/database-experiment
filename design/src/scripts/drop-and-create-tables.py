@@ -9,15 +9,9 @@ NOTE You will lost all your data!
 import toml
 import MySQLdb
 
-dbconfig = toml.load('../config/db.toml')
+dbconfig = toml.load('config/db.toml')
 
-conn = MySQLdb.connect(
-    host=dbconfig['connection']['host'],
-    user=dbconfig['connection']['user'],
-    passwd=dbconfig['connection']['passwd'],
-    db=dbconfig['connection']['db'],
-    charset='utf8'
-)
+conn = MySQLdb.connect(**dbconfig['connection'])
 
 
 with conn.cursor() as cur:
@@ -50,9 +44,9 @@ with conn.cursor() as cur:
     # 店员职务信息表
     cur.execute('''
         create table if not exists Jobs (
-            id          integer         auto_increment  comment '职务编号',
-            name        varchar(64)     not null        comment '职务名称',
-            ac_merch    boolean         default false   comment '商品信息表操作权限',
+            id          integer         auto_increment              comment '职务编号',
+            name        varchar(64)     not null                    comment '职务名称',
+            ac_merch    boolean         not null    default false   comment '商品信息表操作权限',
             primary key (id),
             index (name)
         )

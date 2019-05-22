@@ -1,5 +1,6 @@
 [connection]
     host = 'localhost'
+    db = 'dbexp_shop'   # name of the database
+    charset = 'utf8'
     user = 'localroot'
     passwd = '123456'
-    db = 'dbexp_shop'   # name of the database
