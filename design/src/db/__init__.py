@@ -5,6 +5,9 @@ import MySQLdb
 
 from typing import List, Tuple, Dict, Union, Any
 
+import toml
+DBCONFIG = toml.load('config/db.toml')
+
 
 class BaseMySQLDao:
     '''
@@ -26,11 +29,12 @@ class BaseMySQLDao:
 
         DO NOT CLOSE _conn!
     '''
-    def __init__(self, config_path: str='config/db.toml', table: str=None):
-        cfg = toml.load(config_path)
-        self._conn = MySQLdb.connect(**cfg['connection'])
+    def __init__(self, config: Dict=DBCONFIG, table: str=None):
+        self._conn = MySQLdb.connect(**DBCONFIG['connection'])
         # NOTE Turn off auto-commit explicity to enable transaction
         self._conn.autocommit(False)
+        with self._conn.cursor() as cur:
+            cur.execute('set transaction isolation level serializable')
         if table is None:
             raise ValueError('BaseMySQLDao(): parameter table is None.')
         self._table = table
@@ -209,6 +213,7 @@ class UpdatableBaseMySQLDao(BaseMySQLDao):
 from .Merchandise import MerchandiseDao
 
 __all__ = [
+    'DBCONFIG'
     'BaseMySQLDao', 'UpdatableBaseMySQLDao',
     'MerchandiseDao'
 ]

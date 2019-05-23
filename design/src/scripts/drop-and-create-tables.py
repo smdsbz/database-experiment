@@ -54,7 +54,7 @@ with conn.cursor() as cur:
         create table if not exists Employee (
             id          integer         auto_increment  comment '店员编号',
             login       varchar(64)     not null        comment '登录名',
-            passwd      char(128)       not null        comment '登陆密码（MD5）',
+            passwd      char(32)        not null        comment '登陆密码（16进制 MD5）',
             job         integer                         comment '职务编号',
             tel         char(11)        not null        comment '联系电话',
             primary key (id),

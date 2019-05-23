@@ -22,8 +22,8 @@
 #### 运行方法
 
 0. 进入源码目录 `src/`。
-1. 手动在 MySQL 中创建数据库，并更新 `config/db.toml` 中数据库名称。
-2. （在源码根目录 `src/` 下）运行脚本 `drop-and-create-tables.py`，创建数据表结构及服务运行所有依赖的触发器等。
+1. 手动在 MySQL 中创建数据库，并更新 `config/db.toml` 中数据库名称及其他各项设置。
+2. （在源码根目录 `src/` 下）运行脚本 `scripts/drop-and-create-tables.py`，创建数据表结构及服务运行所有依赖的触发器等。
 3. TODO
 
 #### 测试
@@ -35,6 +35,10 @@ $ python -m unittest test.[PKG] -v
 ```
 
 运行包 `PKG` 的单元测试。
+
+> NOTE
+>
+> 单元测试可能会改动数据库，请在单元测试后运行 `scripts/drop-and-create-tables.py` 脚本重建数据表。
 
 #### 环境依赖
 
