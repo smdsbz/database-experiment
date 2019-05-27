@@ -11,7 +11,7 @@ from itsdangerous import (
 
 from db import EmployeeDao
 
-auth = HTTPBasicAuth()
+auth = HTTPBasicAuth()  # exported symbol
 dao = EmployeeDao()
 
 SECRET_KEY = toml.load('config/server.toml')['server']['secret-key']

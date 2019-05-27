@@ -75,3 +75,30 @@ class TransDetailDao(BaseMySQLDao):
                 ''', [(trans_id, *item) for item in items]) != len(items):
             return -1
         return 0
+
+    def get_sum(self, trans_id: int, dbcursor=None) -> Union[None, float]:
+        '''
+        Arguments
+        ---------
+            trans_id: int
+            dbcursor: MySQLdb Cursor or None
+                Transaction context.
+
+        Return
+        ------
+            Sum of transaction or None if trans_id not present.
+        '''
+        if dbcursor is None:
+            ret = [
+                row[0] for row in
+                self.select('sum(`price` * `count`)', trans_id=trans_id)
+            ]
+        else:
+            dbcursor.execute(f'''
+                select sum(`price` * `count`) from `{self._table}`
+                where `trans_id` = %s
+            ''', (trans_id,))
+            ret = [row[0] for row in dbcursor]
+        if not ret:
+            return None
+        return ret[0]

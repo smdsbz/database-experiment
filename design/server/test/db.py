@@ -3,7 +3,7 @@
 import unittest
 from datetime import datetime
 from db import BaseMySQLDao, UpdatableBaseMySQLDao
-from db import MerchandiseDao
+from db import MerchandiseDao, ShiftsDao
 
 
 class TestBaseMySQLDao(unittest.TestCase):
@@ -126,6 +126,39 @@ class TestMerchandiseDao(unittest.TestCase):
             self.dao.select('price', id=id_),
             [(5.0,)]
         )
+
+
+class TestShiftsDao(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.dao = ShiftsDao()
+
+    @classmethod
+    def tearDownClass(cls):
+        pass
+
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        self.dao.delete()
+
+    def test_dirty_multiple_login(self):
+        import time
+        self.dao.login_cb(2)
+        time.sleep(1)   # HACK start_time is part of primary key, wait 1 sec
+        self.dao.insert(employee_id=2, start_time=datetime.now())
+        self.assertEqual(self.dao.get_current_login_start_time(2)[0], 3)
+
+    def test_login_and_logout(self):
+        start = self.dao.login_cb(2)
+        self.assertTrue(isinstance(start, datetime))
+        self.assertTupleEqual(
+            self.dao.get_current_login_start_time(2),
+            (0, start)
+        )
+        self.assertEqual(self.dao.logout_cb(2), 0)
 
 
 if __name__ == '__main__':
