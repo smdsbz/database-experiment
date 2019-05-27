@@ -26,12 +26,12 @@ def verify_password(user: str, passwd: str) -> bool:
             s.loads(users[user])
             return True
         except SignatureExpired:
-            print(f'Signature for user {user} expired.')
+            # print(f'Signature for user {user} expired.')
             pass
         else:
             pass
         users[user] = s.dumps(user)     # update timestamp
-    print("Reaching to db")
+    # print("Reaching to db")
     ret = dao.verify_login(user, passwd)
     if ret == 0:
         users[user] = s.dumps(user)

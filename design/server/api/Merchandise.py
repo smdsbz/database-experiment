@@ -13,6 +13,7 @@ merchlist_post_parser.add_argument('count', type=int)
 
 dao = MerchandiseDao()
 
+
 class MerchandiseApi(Resource):
     @auth.login_required
     def get(self, id_: int):
@@ -35,6 +36,7 @@ class MerchandiseApi(Resource):
         if ret != 1:
             abort(500, message=f'Deletion affected {ret} rows!')
         return '', 204
+
 
 class MerchandiseListApi(Resource):
     @auth.login_required
@@ -59,6 +61,9 @@ class MerchandiseListApi(Resource):
 
     @auth.login_required
     def post(self):
+        '''
+        Insert a new merchandise.
+        '''
         values = merchlist_post_parser.parse_args(strict=False)
         if ('name' not in values) or ('price' not in values):
             abort(404, message='Name and price must be given!')

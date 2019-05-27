@@ -47,11 +47,18 @@ $ python -m unittest test.[PKG] -v
 
 __Python 包__
 
+Server-side:
+
 - toml
 - [mysqlclient](https://github.com/PyMySQL/mysqlclient-python) 1.4.2
 - flask
-    - itsdangerous
-- Flask-HTTPAuth
-- flask-restul
+    - itsdangerous (default package in flask)
+    - Flask-HTTPAuth
+    - flask-restul
+- [requests](https://2.python-requests.org/en/master/) (only used in tests)
 
+Client-side:
+
+- toml
 - PyQt5
+- requests

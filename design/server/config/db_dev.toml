@@ -1,0 +1,51 @@
+[connection]
+    host = 'localhost'
+    db = 'dbexp_shop'   # name of the database
+    charset = 'utf8'
+    user = 'localroot'
+    passwd = '123456'
+
+
+[initial-data]
+
+[[initial-data.Jobs]]
+    id = 1
+    name = '管理员'
+    ac_merch = true
+
+[[initial-data.Jobs]]
+    id = 2
+    name = '收银员'
+    ac_merch = false
+
+[[initial-data.Employee]]
+    id = 1
+    login = 'root'
+    passwd = 'e10adc3949ba59abbe56e057f20f883e'     # md5-hash for '123456'
+    job = 1
+    tel = '13088889999'
+
+[[initial-data.Employee]]
+    id = 2
+    login = 'pukei-pukei'
+    passwd = '3ae63f4d208574786fff5ac94625f296'     # 'gongjizhu'
+    job = 2
+    tel = '13322223333'
+
+[[initial-data.Merchandise]]
+    id = 1              # NOTE 1 is the smallest value for an auto_increment column
+    name = '会员卡'
+    price = 50.00
+    # count = NULL
+
+[[initial-data.Merchandise]]
+    id = 2
+    name = '雌火龙的红玉'
+    price = 8000.00
+    count = 3
+
+[[initial-data.Merchandise]]
+    id = 3
+    name = '攻击珠'
+    price = 200.00
+    count = 2

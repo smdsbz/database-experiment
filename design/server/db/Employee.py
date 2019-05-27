@@ -50,6 +50,18 @@ class EmployeeDao(UpdatableBaseMySQLDao):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, table='Employee', **kwargs)
 
+    def has_id(self, id_: str) -> bool:
+        '''
+        Arguments
+        ---------
+            id_: str
+
+        Return
+        ------
+            Whether the employee ID is legit.
+        '''
+        return bool(self.select('id', id=id_))
+
     def verify_login(self, user: str, passwd: str, hash_alg=hashlib.md5) -> int:
         '''
         Verifies a login.
@@ -76,5 +88,4 @@ class EmployeeDao(UpdatableBaseMySQLDao):
         if passwd not in passwds:
             return 2
         # push to session
-        print('returning 0')
         return 0

@@ -1,2 +1,4 @@
 [server]
+    port = 2233
     secret-key = 'assert isinstance(🍵🍵🍵shirakamifubuki🌽🌽🌽, neko)'
+    debug = true

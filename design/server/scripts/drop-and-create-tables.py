@@ -6,10 +6,17 @@ Drops all data table definitions and recreate new ones.
 NOTE You will lost all your data!
 '''
 
+import sys
 import toml
 import MySQLdb
 
-dbconfig = toml.load('config/db.toml')
+if len(sys.argv) == 1:
+    dbconfig = toml.load('config/db.toml')
+elif len(sys.argv) == 2:
+    dbconfig = toml.load(sys.argv[1])
+else:
+    print('Usage: python scripts/drop-and-create-tables.py [DBCONFIG]')
+    exit(0)
 
 conn = MySQLdb.connect(**dbconfig['connection'])
 
