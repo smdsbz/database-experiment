@@ -2,7 +2,6 @@
 
 from typing import List, Tuple, Dict, Union, Any
 
-import toml
 from . import DBCONFIG, UpdatableBaseMySQLDao
 
 

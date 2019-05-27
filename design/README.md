@@ -50,3 +50,8 @@ __Python 包__
 - toml
 - [mysqlclient](https://github.com/PyMySQL/mysqlclient-python) 1.4.2
 - flask
+    - itsdangerous
+- Flask-HTTPAuth
+- flask-restul
+
+- PyQt5

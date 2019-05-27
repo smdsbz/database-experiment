@@ -211,9 +211,10 @@ class UpdatableBaseMySQLDao(BaseMySQLDao):
 
 
 from .Merchandise import MerchandiseDao
+from .Employee import JobsDao, EmployeeDao
 
 __all__ = [
     'DBCONFIG'
     'BaseMySQLDao', 'UpdatableBaseMySQLDao',
-    'MerchandiseDao'
+    'MerchandiseDao', 'JobsDao', 'EmployeeDao'
 ]
