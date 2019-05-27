@@ -38,7 +38,8 @@ $ python -m unittest test.[PKG] -v
 
 > NOTE
 >
-> 单元测试可能会改动数据库，请在单元测试后运行 `scripts/drop-and-create-tables.py` 脚本重建数据表。
+> - 单元测试可能会改动数据库，请在单元测试后运行 `scripts/drop-and-create-tables.py` 脚本重建数据表。
+> - API 单元测试 `test.api` 仅为 `curl` 工具的替代方案，所有测试 endpoint 均不做任何断言，需要使用者根据自己测试时数据库中数据状态，自行判断测试结果的正确性。
 
 #### 环境依赖
 
