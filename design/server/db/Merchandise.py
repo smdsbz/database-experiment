@@ -2,6 +2,8 @@
 
 from typing import List, Tuple, Dict, Union, Any
 
+import decimal as D
+
 from . import DBCONFIG, UpdatableBaseMySQLDao
 
 
@@ -37,6 +39,33 @@ class MerchandiseDao(UpdatableBaseMySQLDao):
             return -2
         return ids[0][0]
 
+    def get_by_id_range(self, start: int, count: int)                           \
+            -> List[Tuple[int, str, D.Decimal, Union[int, None]]]:
+        '''
+        Select all fields where merchandise ID in range.
+
+        Arguments
+        ---------
+            start: int
+            count: int
+
+        Return
+        ------
+            [
+                (id: int, name: str, price: Deciaml, count: int),
+                ...
+            ]
+        '''
+        sql = f'''
+            select `id`, `name`, `price`, `count` from {self._table}
+            where `id` >= %s
+            limit %s
+        '''
+        with self._conn.cursor() as cur:
+            cur.execute(sql, (start, count))
+            result = [row for row in cur]
+        return result
+
     @property
     def _VIPCardID(self) -> int:
         '''
@@ -63,7 +92,7 @@ class MerchandiseDao(UpdatableBaseMySQLDao):
                 raise e
         return retval
 
-    def update(self, merch: Union[int, str], **kwargs: Dict[str, Any]) -> bool:
+    def update(self, merch: Union[int, str], **kwargs: Dict[str, Any]) -> int:
         '''
         Update info of merchandise.
 
@@ -76,7 +105,9 @@ class MerchandiseDao(UpdatableBaseMySQLDao):
 
         Return
         ------
-            Whether the operation was successful.
+            -2      - VIPCard cannot be updated.
+            -1      - Illegal merchandise ID.
+            else    - Rows updated.
         '''
         if isinstance(merch, int):
             merchid = merch
@@ -88,9 +119,12 @@ class MerchandiseDao(UpdatableBaseMySQLDao):
             return False
         elif merchid < 0:
             return False
-        if super().update(merchid, **kwargs) != 1:
-            return False
-        return True
+        return super().update(merchid, **kwargs)
+
+    def store(self, merch: int, diff: int) -> int:
+        with self._conn.cursor() as cur:
+            ret = self.consume(merch, -diff, cur)
+        return ret
 
     def consume(self, merch: int, count: int, dbcursor) -> int:
         '''
@@ -101,7 +135,7 @@ class MerchandiseDao(UpdatableBaseMySQLDao):
             merch: int
                 ID (must be legit).
             count: int
-                Numbers of items to be consumed.
+                Numbers of items to be consumed (could be negative).
             dbcursor: MySQLdb Cursor
                 Transaction context.
 

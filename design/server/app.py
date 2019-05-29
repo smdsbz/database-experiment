@@ -14,11 +14,14 @@ app.config['SECRET_KEY'] = SRVCONFIG['server']['secret-key']
 
 api = Api(app)
 
-api.add_resource(MerchandiseApi, '/api/query/merchandise/<int:id_>')
+api.add_resource(
+    MerchandiseApi,
+    '/api/query/merchandise/<int:id_>'                  # GET, DELETE, PUT
+)
 api.add_resource(
     MerchandiseListApi,
-    '/api/list/merchandise/<int:start>/<int:count>',
-    '/api/update/merchandise'
+    '/api/list/merchandise/<int:start>/<int:count>',    # GET
+    '/api/update/merchandise'                           # POST
 )
 api.add_resource(
     TransactionApi,
@@ -29,10 +32,16 @@ api.add_resource(
     TransDetailApi,
     '/api/query/trans_detail/<int:trans_id>'
 )
+api.add_resource(
+    AuthApi,
+    '/api/auth/login/<user>/<passwd_md5>',              # GET
+    '/api/auth/logout/<user>',                          # DELETE
+    '/api/auth/signup'                                  # POST (not implemented)
+)
 
 if __name__ == '__main__':
     app.run(
-        host='localhost',
-        port=f"{SRVCONFIG['server']['port']}",
+        host=SRVCONFIG['server']['host'],
+        port=SRVCONFIG['server']['port'],
         debug=SRVCONFIG['server']['debug'],
     )

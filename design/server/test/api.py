@@ -34,7 +34,7 @@ class TestTransaction(unittest.TestCase):
     def test_get_transdetail(self):
         print()
         r = R.get(
-            url_base + 'query/trans_detail/1',
+            url_base + 'query/trans_detail/3',
             auth=auth
         )
         print(f'status code: {r.status_code}')

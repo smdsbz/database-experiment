@@ -64,7 +64,9 @@ class EmployeeDao(UpdatableBaseMySQLDao):
         '''
         return bool(self.select('id', id=id_))
 
-    def verify_login(self, user: str, passwd: str, hash_alg=hashlib.md5) -> int:
+    def verify_login(self, user: str, passwd: str,
+            hash_alg=lambda s: hashlib.md5(s.encode('utf-8')).hexdigest())      \
+            -> int:
         '''
         Verifies a login.
 
@@ -79,18 +81,18 @@ class EmployeeDao(UpdatableBaseMySQLDao):
 
         Return
         ------
-            0   - Ok.
-            1   - User not found.
-            2   - Wrong password.
+            -2      - Wrong password.
+            -1      - User not found.
+            else    - Employee ID.
         '''
-        passwd = hash_alg(passwd.encode('utf-8')).hexdigest()
-        passwds = [passwd[0] for passwd in self.select('passwd', login=user)]
+        passwd = hash_alg(passwd)
+        passwds = self.select('id', 'passwd', login=user)
         if not passwds:
-            return 1
-        if passwd not in passwds:
-            return 2
-        # push to session
-        return 0
+            return -1
+        for id_, true_pass in passwds:
+            if passwd == true_pass:
+                return id_
+        return -2
 
 
 class ShiftsDao(UpdatableBaseMySQLDao):
