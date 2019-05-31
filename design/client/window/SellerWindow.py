@@ -40,10 +40,10 @@ class SellerWindow(W.QMainWindow):
                 auth=self.user_data['auth']
             )
             assert ret.status_code == 200
+            ret = ret.json()
         except Exception as e:
             qmessage_critical_with_detail('错误', '服务端发生错误！', str(e), self)
             return
-        ret = ret.json()
         if not ret:
             W.QMessageBox.information(self, '提示', '无法找到该商品！')
             return

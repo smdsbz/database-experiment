@@ -48,6 +48,7 @@ class MerchandiseDao(UpdatableBaseMySQLDao):
         ---------
             start: int
             count: int
+                If <= 0, fetch all.
 
         Return
         ------
@@ -60,10 +61,14 @@ class MerchandiseDao(UpdatableBaseMySQLDao):
             select `id`, `name`, `price`, `count` from `{self._table}`
             where `id` >= %s
             order by `id` asc
-            limit %s
         '''
+        if count > 0:
+            sql += ' limit %s'
+            value = (start, count)
+        else:
+            value = (start,)
         with self._conn.cursor() as cur:
-            cur.execute(sql, (start, count))
+            cur.execute(sql, value)
             result = [row for row in cur]
         return result
 

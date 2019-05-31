@@ -20,24 +20,37 @@ shift_dao  = ShiftsDao()
 class TransactionApi(Resource):
     @auth.login_required
     def get(self, start: int, count: int):
-        sql = f'''
-            select T.`id`, T.`time`, T.`cashier`, E.`login`
-            from `{trans_dao._table}` as T, `{employ_dao._table}` as E
-            where T.`id` >= %s and T.`cashier` = E.`id`
-            limit %s
         '''
+        Arguments
+        ---------
+            start: int
+            count: int
+                Maximum rows to return. If <= 0, return all rows.
+        '''
+        sql = f'''
+            select T.`id`, T.`time`, T.`cashier`, E.`login`, sum(D.`price` * D.`count`)
+            from `{trans_dao._table}` as T, `{employ_dao._table}` as E, `{detail_dao._table}` as D
+            where T.`id` >= %s and T.`cashier` = E.`id` and T.`id` = D.`trans_id`
+            order by T.`time` desc
+        '''
+        if count > 0:
+            sql += ' limit %s'
+            value = (start, count)
+        else:
+            value = (start,)
         with trans_dao._conn.cursor() as cur:
-            cur.execute(sql, (start, count))
+            cur.execute(sql, value)
             result = [row for row in cur]
         return [
             {
                 'trans_id': row[0],
                 'time': row[1].strftime('%Y-%m-%d %H:%M:%S'),
                 'cashier_id': row[2],
-                'cashier_login': row[3]
+                'cashier_login': row[3],
+                'sum': str(row[4])
             }
             for row in result
-        ]
+        ], 200
 
     @auth.login_required
     def post(self):

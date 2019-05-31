@@ -53,9 +53,7 @@ class MerchandiseApi(Resource):
         try:
             if 'add' not in new_vals and 'minus' not in new_vals:
                 ret = dao.update(id_, **new_vals)
-                if ret == 0:
-                    return 'No row affected', 200
-                assert ret == 1
+                assert ret == 0
             else:
                 if 'add' in new_vals:
                     ret = dao.store(id_, new_vals['add'])
@@ -69,6 +67,7 @@ class MerchandiseApi(Resource):
                     return 'UPDATE query finished with error', 406
                 elif ret == 3:
                     return 'Row with ID not found', 406
+                assert ret == 0
         except Exception as e:
             return str(e), 406
         return '', 200

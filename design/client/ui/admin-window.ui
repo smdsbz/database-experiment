@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>557</width>
-    <height>418</height>
+    <width>821</width>
+    <height>511</height>
    </rect>
   </property>
   <property name="font">
@@ -159,7 +159,104 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_4">
         <item row="0" column="0">
-         <widget class="QTreeWidget" name="trans_tree"/>
+         <widget class="QTreeWidget" name="trans_tree">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="animated">
+           <bool>false</bool>
+          </property>
+          <column>
+           <property name="text">
+            <string>订单 ID</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>商品 ID</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>商品名称</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>实际单价</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>交易数量</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>交易时间</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>交易总额</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>负责店员 ID</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>负责店员姓名</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+          </column>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -172,7 +269,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>557</width>
+     <width>821</width>
      <height>18</height>
     </rect>
    </property>
@@ -220,7 +317,13 @@
     </property>
     <addaction name="about_action"/>
    </widget>
+   <widget class="QMenu" name="query_menu">
+    <property name="title">
+     <string>查询</string>
+    </property>
+   </widget>
    <addaction name="file_menu"/>
+   <addaction name="query_menu"/>
    <addaction name="help_menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar">

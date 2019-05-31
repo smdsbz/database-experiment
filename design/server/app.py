@@ -29,12 +29,12 @@ api.add_resource(
 )
 api.add_resource(
     TransactionApi,
-    '/api/query/trans/<int:start>/<int:count>',
+    '/api/list/trans/<int:start>/<int:count>',
     '/api/trans'
 )
 api.add_resource(
     TransDetailApi,
-    '/api/query/trans_detail/<int:trans_id>'
+    '/api/query/trans-detail/<int:trans_id>'
 )
 api.add_resource(
     AuthApi,
