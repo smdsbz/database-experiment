@@ -48,6 +48,9 @@ class Ui_Dialog(object):
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
+        Dialog.setTabOrder(self.user_input, self.passwd_input)
+        Dialog.setTabOrder(self.passwd_input, self.login_button)
+        Dialog.setTabOrder(self.login_button, self.cancel_button)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate

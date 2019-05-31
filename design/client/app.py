@@ -2,13 +2,15 @@
 
 import sys
 import PyQt5 as Q
-from PyQt5 import uic, QtWidgets as W
 
 from window import LoginWindow
 
 
 if __name__ == '__main__':
-    app = W.QApplication(sys.argv)
+    app = Q.QtWidgets.QApplication(sys.argv)
     window = LoginWindow()
     window.show()
-    sys.exit(app.exec())
+    try:
+        sys.exit(app.exec())
+    except Exception as e:
+        window.next_window.close()

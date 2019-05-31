@@ -57,6 +57,8 @@ class LoginWindow(W.QDialog):
         print(f'Successfully logged-in as {user} ({employee_id}, {role})!')
         if role == 'admin':
             self.next_window = AdminWindow()
+        elif role == 'common':
+            self.next_window = SellerWindow()
         else:
             raise ValueError(f'Window for role {role} not implemented!')
         self.next_window.user_data['login'] = user

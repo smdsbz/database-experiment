@@ -26,6 +26,7 @@ with conn.cursor() as cur:
 
     cur.execute('drop table if exists Shifts')
     cur.execute('drop table if exists VIPTransRecord')
+    cur.execute('drop table if exists VIP')
     cur.execute('drop table if exists TransDetail')
     cur.execute('drop table if exists Transaction')
     cur.execute('drop table if exists Employee')

@@ -1,2 +1,5 @@
 [remote]
     url = 'http://localhost:2233'
+
+[transaction]
+    vip-discount = 0.8

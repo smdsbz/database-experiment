@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>498</width>
-    <height>414</height>
+    <width>579</width>
+    <height>460</height>
    </rect>
   </property>
   <property name="font">
@@ -49,15 +49,17 @@
           </property>
          </spacer>
         </item>
-        <item row="1" column="0">
-         <widget class="QCheckBox" name="is_vip_checkbox">
-          <property name="text">
-           <string>是否会员</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="0" colspan="5">
          <widget class="QTableWidget" name="trans_table">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
           <column>
            <property name="text">
             <string>商品 ID</string>
@@ -71,6 +73,16 @@
           <column>
            <property name="text">
             <string>商品名称</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>折前单价</string>
            </property>
            <property name="font">
             <font>
@@ -122,16 +134,23 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QPushButton" name="submit_uutton">
+         <widget class="QPushButton" name="submit_button">
           <property name="text">
            <string> 提交订单 </string>
           </property>
          </widget>
         </item>
         <item row="2" column="0" colspan="2">
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="sum_display_label">
           <property name="text">
            <string>总金额：￥0.00</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QCheckBox" name="is_vip_checkbox">
+          <property name="text">
+           <string>是否会员</string>
           </property>
          </widget>
         </item>
@@ -141,6 +160,57 @@
        <attribute name="title">
         <string>会员注册</string>
        </attribute>
+       <layout class="QFormLayout" name="formLayout">
+        <property name="labelAlignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>姓    名*</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="lineEdit"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>电话号码 </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="lineEdit_2"/>
+        </item>
+        <item row="3" column="0" colspan="2">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>（标 * 的为必填项目）</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2">
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -151,7 +221,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>498</width>
+     <width>579</width>
      <height>18</height>
     </rect>
    </property>
@@ -164,12 +234,12 @@
     <property name="title">
      <string>文件</string>
     </property>
-    <addaction name="action"/>
+    <addaction name="exit_action"/>
    </widget>
    <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="action">
+  <action name="exit_action">
    <property name="text">
     <string>退出</string>
    </property>

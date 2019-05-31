@@ -110,7 +110,7 @@ class TransactionApi(Resource):
             except Exception as e:
                 conn.rollback()
                 abort(500, message=str(e))
-        return '', 201
+        return '', 200
 
 
 class TransDetailApi(Resource):

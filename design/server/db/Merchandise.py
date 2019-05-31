@@ -52,18 +52,46 @@ class MerchandiseDao(UpdatableBaseMySQLDao):
         Return
         ------
             [
-                (id: int, name: str, price: Deciaml, count: int),
+                (id: int, name: str, price: Deciaml, count: int or None),
                 ...
             ]
         '''
         sql = f'''
-            select `id`, `name`, `price`, `count` from {self._table}
+            select `id`, `name`, `price`, `count` from `{self._table}`
             where `id` >= %s
+            order by `id` asc
             limit %s
         '''
         with self._conn.cursor() as cur:
             cur.execute(sql, (start, count))
             result = [row for row in cur]
+        return result
+
+    def get_by_name_fuzzy(self, name: str)                                      \
+            -> List[Tuple[int, str, D.Decimal, Union[int, None]]]:
+        '''
+        Select all fields by name (fuzzy search).
+
+        Arguments
+        ---------
+            name: str
+
+        Return
+        ------
+            [
+                (id: int, name: str, price: Decimal, count: int or None),
+                ...
+            ]
+        '''
+        sql = f'''
+            select `id`, `name`, `price`, `count` from `{self._table}`
+            where `name` like %s
+        '''
+        value = (f'%{name}%',)
+        with self._conn.cursor() as cur:
+            cur.execute(sql, value)
+            result = [row for row in cur]
+            self._conn.rollback()
         return result
 
     @property

@@ -49,3 +49,15 @@
     name = '攻击珠'
     price = 200.00
     count = 2
+
+[[initial-data.Merchandise]]
+    id = 4
+    name = '攻击 UP · 大'
+    price = 19.99
+    # count = NULL
+
+[[initial-data.VIP]]
+    id = 1
+    date = '2019-06-01'
+    name = '恐暴龙'
+    # tel = NULL

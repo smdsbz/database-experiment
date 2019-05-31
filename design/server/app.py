@@ -19,6 +19,10 @@ api.add_resource(
     '/api/query/merchandise/<int:id_>'                  # GET, DELETE, PUT
 )
 api.add_resource(
+    MerchandiseByNameApi,
+    '/api/byname/merchandise/<name>'                    # GET
+)
+api.add_resource(
     MerchandiseListApi,
     '/api/list/merchandise/<int:start>/<int:count>',    # GET
     '/api/update/merchandise'                           # POST

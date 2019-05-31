@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+from typing import *
+from decimal import Decimal
+
 from flask import request
 from flask_restful import Resource
 from flask_restful import reqparse, abort
@@ -113,3 +116,20 @@ class MerchandiseListApi(Resource):
         if ret != 1:
             abort(500, message=f'Insertion affected {ret} rows!')
         return '', 200
+
+
+class MerchandiseByNameApi(Resource):
+    @auth.login_required
+    def get(self, name: str):
+        try:
+            ret = dao.get_by_name_fuzzy(name)
+            return [
+                {
+                    'merch_id': row[0],
+                    'name': row[1],
+                    'orig_price': float(row[2])
+                }
+                for row in ret
+            ], 200
+        except Exception as e:
+            abort(500)

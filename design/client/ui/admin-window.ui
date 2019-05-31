@@ -147,13 +147,21 @@
        <attribute name="title">
         <string>店员信息</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_3"/>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QTableWidget" name="tableWidget"/>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="transtab">
        <attribute name="title">
         <string>交易信息</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_4"/>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="QTreeWidget" name="trans_tree"/>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
