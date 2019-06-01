@@ -1,5 +1,5 @@
 [server]
-    host = 'localhost'
+    host = '127.0.0.1'
     port = 2233
     secret-key = 'assert isinstance(🍵🍵🍵shirakamifubuki🌽🌽🌽, neko)'
     debug = true

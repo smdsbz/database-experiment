@@ -42,6 +42,14 @@ api.add_resource(
     '/api/auth/logout/<user>',                          # DELETE
     '/api/auth/signup'                                  # POST (not implemented)
 )
+api.add_resource(
+    EmployeeListApi,
+    '/api/list/employee/<int:start>/<int:count>'        # GET
+)
+api.add_resource(
+    ShiftsApi,
+    '/api/query/shifts/<int:employee_id>'               # GET
+)
 
 if __name__ == '__main__':
     app.run(

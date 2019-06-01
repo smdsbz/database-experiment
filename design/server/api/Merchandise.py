@@ -21,7 +21,10 @@ dao = MerchandiseDao()
 class MerchandiseApi(Resource):
     @auth.login_required
     def get(self, id_: int):
-        result = dao.select('name', 'price', 'count', id=id_)
+        try:
+            result = dao.select('name', 'price', 'count', id=id_)
+        except Exception as e:
+            abort(500, message=str(e))
         if not result:
             return None
         result = result[0]

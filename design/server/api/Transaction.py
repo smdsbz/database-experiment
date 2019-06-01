@@ -31,6 +31,7 @@ class TransactionApi(Resource):
             select T.`id`, T.`time`, T.`cashier`, E.`login`, sum(D.`price` * D.`count`)
             from `{trans_dao._table}` as T, `{employ_dao._table}` as E, `{detail_dao._table}` as D
             where T.`id` >= %s and T.`cashier` = E.`id` and T.`id` = D.`trans_id`
+            group by T.`id`
             order by T.`time` desc
         '''
         if count > 0:
@@ -39,8 +40,13 @@ class TransactionApi(Resource):
         else:
             value = (start,)
         with trans_dao._conn.cursor() as cur:
-            cur.execute(sql, value)
-            result = [row for row in cur]
+            try:
+                cur.execute(sql, value)
+                result = [row for row in cur]
+                trans_dao._conn.commit()
+            except Exception as e:
+                trans_dao._conn.rollback()
+                abort(500, str(e))
         return [
             {
                 'trans_id': row[0],
@@ -137,9 +143,13 @@ class TransDetailApi(Resource):
         '''
         value = (trans_id,)
         with detail_dao._conn.cursor() as cur:
-            cur.execute(sql, value)
-            ret = [row for row in cur]
-            detail_dao._conn.commit()
+            try:
+                cur.execute(sql, value)
+                ret = [row for row in cur]
+                detail_dao._conn.commit()
+            except Exception as e:
+                detail_dao._conn.rollback()
+                abort(500, message=str(e))
         return [
             {
                 'merch_id': row[0],

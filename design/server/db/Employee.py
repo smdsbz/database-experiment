@@ -258,3 +258,30 @@ class ShiftsDao(UpdatableBaseMySQLDao):
             ''')
             self._conn.commit()
         return ret
+
+    def get_all_by_emploee_id(self, employee_id: int)                           \
+            -> List[Tuple[datetime, datetime, D.Decimal]]:
+        '''
+        Arguments
+        ---------
+            employee_id: int
+
+        Return
+        ------
+            [
+                (start_time, end_time, sum_consume),
+                ...
+            ]
+        '''
+        sql = f'''
+            select `start_time`, `end_time`, `sum_consume`
+            from `{self._table}`
+            where `employee_id` = %s
+            order by `start_time` desc
+        '''
+        value = (employee_id,)
+        with self._conn.cursor() as cur:
+            cur.execute(sql, value)
+            ret = [row for row in cur]
+            self._conn.commit()
+        return ret

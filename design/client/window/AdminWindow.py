@@ -30,6 +30,7 @@ class AdminWindow(W.QMainWindow):
         self.ui.refresh_trans_action.triggered.connect(self.handle_refresh_trans_action)
         self.ui.refresh_all_action.triggered.connect(self.handle_refresh_all_action)
         self.ui.merch_table.cellDoubleClicked.connect(self.handle_merch_table_cellDoubleClick)
+        self.ui.employ_tree.clicked.connect(self.handle_employ_tree_clicked)
         self.ui.trans_tree.clicked.connect(self.handle_trans_tree_clicked)
         self.ui.exit_action.triggered.connect(self.handle_exit_action)
 
@@ -135,7 +136,68 @@ class AdminWindow(W.QMainWindow):
             W.QMessageBox.information(self, '提示', '更改未生效！')
 
     def handle_refresh_employee_action(self):
-        pass
+        tree = self.ui.employ_tree
+        while tree.topLevelItemCount() != 0:
+            tree.takeTopLevelItem(0)
+        try:
+            ret = requests.get(
+                f'{URL}/api/list/employee/0/0',
+                auth=self.user_data['auth']
+            )
+            assert ret.status_code == 200
+        except Exception as e:
+            qmessage_critical_with_detail('错误', '服务端发生错误！', str(e), self)
+            return
+        try:
+            ret = ret.json()
+            tree.insertTopLevelItems(0, [
+                W.QTreeWidgetItem([
+                    f"{row['employee_id']}", row['name'], '', '', '',
+                    row['job'], row['tel']
+                ])
+                for row in ret
+            ])
+        except Exception as e:
+            W.QMessageBox.warning(self, '警告', '服务端通信协议升级！')
+            return
+
+    def handle_employ_tree_clicked(self, index: C.QModelIndex):
+        if index.row() >= self.ui.employ_tree.topLevelItemCount():
+            return
+        employee = self.ui.employ_tree.topLevelItem(index.row())
+        if employee.parent() is not None:
+            return
+        if employee.isExpanded():
+            employee.setExpanded(False)
+            return
+        if employee.childCount() != 0:
+            employee.setExpanded(True)
+            return
+        employee.takeChildren()
+        employee_id = employee.text(0)
+        try:
+            ret = requests.get(
+                f'{URL}/api/query/shifts/{employee_id}',
+                auth=self.user_data['auth']
+            )
+            assert ret.status_code == 200
+        except Exception as e:
+            qmessage_critical_with_detail('错误', '服务端发生错误！', str(e), self)
+            return
+        try:
+            ret = ret.json()
+            employee.addChildren([
+                W.QTreeWidgetItem([
+                    '', '', row['start'], row['end'] if row['end'] is not None else '---',
+                    f"{Decimal.from_float(row['sum']).quantize(Decimal('1.00'))}",
+                    '', ''
+                ])
+                for row in ret
+            ])
+            employee.setExpanded(True)
+        except Exception as e:
+            W.QMessageBox.warning(self, '警告', '服务端通信协议升级！')
+            return
 
     def handle_refresh_trans_action(self):
         tree = self.ui.trans_tree
@@ -167,8 +229,12 @@ class AdminWindow(W.QMainWindow):
             return
 
     def handle_trans_tree_clicked(self, index: C.QModelIndex):
+        if index.row() >= self.ui.trans_tree.topLevelItemCount():
+            return
         # set sub-items, i.e. transdetails, on expanding top-level
         trans_toplevel = self.ui.trans_tree.topLevelItem(index.row())
+        if trans_toplevel.parent() is not None:
+            return
         # if expanded, hide
         if trans_toplevel.isExpanded():
             trans_toplevel.setExpanded(False)
@@ -177,6 +243,7 @@ class AdminWindow(W.QMainWindow):
         if trans_toplevel.childCount() != 0:
             trans_toplevel.setExpanded(True)
             return
+        # clear all children
         trans_toplevel.takeChildren()
         # get trans ID
         trans_id = trans_toplevel.text(0)

@@ -1,5 +1,7 @@
 [remote]
-    url = 'http://localhost:2233'
+    # NOTE: 'localhost' defaults to IPv6, falls back to IPv4 on timeout.
+    #       '127.0.0.1' to use IPv4 explicitly.
+    url = 'http://127.0.0.1:2233'
 
 [transaction]
     vip-discount = 0.8

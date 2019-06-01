@@ -70,6 +70,7 @@ class MerchandiseDao(UpdatableBaseMySQLDao):
         with self._conn.cursor() as cur:
             cur.execute(sql, value)
             result = [row for row in cur]
+            self._conn.commit()
         return result
 
     def get_by_name_fuzzy(self, name: str)                                      \
@@ -96,7 +97,7 @@ class MerchandiseDao(UpdatableBaseMySQLDao):
         with self._conn.cursor() as cur:
             cur.execute(sql, value)
             result = [row for row in cur]
-            self._conn.rollback()
+            self._conn.commit()
         return result
 
     @property

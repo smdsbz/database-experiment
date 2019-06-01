@@ -149,7 +149,102 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
-         <widget class="QTableWidget" name="tableWidget"/>
+         <widget class="QTreeWidget" name="employ_tree">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <column>
+           <property name="text">
+            <string>店员 ID</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>店员姓名</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>班次起始时间</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>班次结束时间</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>班次总营收</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>职务</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>联系方式</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
+          </column>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -175,6 +270,9 @@
              <family>宋体</family>
             </font>
            </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
           </column>
           <column>
            <property name="text">
@@ -184,6 +282,9 @@
             <font>
              <family>宋体</family>
             </font>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
            </property>
           </column>
           <column>
@@ -195,6 +296,9 @@
              <family>宋体</family>
             </font>
            </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
           </column>
           <column>
            <property name="text">
@@ -204,6 +308,9 @@
             <font>
              <family>宋体</family>
             </font>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
            </property>
           </column>
           <column>
@@ -215,6 +322,9 @@
              <family>宋体</family>
             </font>
            </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
           </column>
           <column>
            <property name="text">
@@ -224,6 +334,9 @@
             <font>
              <family>宋体</family>
             </font>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
            </property>
           </column>
           <column>
@@ -235,6 +348,9 @@
              <family>宋体</family>
             </font>
            </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
           </column>
           <column>
            <property name="text">
@@ -245,6 +361,9 @@
              <family>宋体</family>
             </font>
            </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
           </column>
           <column>
            <property name="text">
@@ -254,6 +373,9 @@
             <font>
              <family>宋体</family>
             </font>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
            </property>
           </column>
          </widget>
