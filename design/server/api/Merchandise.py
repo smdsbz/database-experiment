@@ -52,7 +52,6 @@ class MerchandiseApi(Resource):
         Fields to change should be given in JSON.
         '''
         new_vals = request.get_json()
-        print(new_vals)
         try:
             if 'add' not in new_vals and 'minus' not in new_vals:
                 ret = dao.update(id_, **new_vals)

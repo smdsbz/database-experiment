@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>585</width>
-    <height>499</height>
+    <height>494</height>
    </rect>
   </property>
   <property name="font">
@@ -20,7 +20,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
+    <item row="0" column="1">
      <widget class="QTabWidget" name="tabwidget">
       <property name="minimumSize">
        <size>
@@ -158,27 +158,43 @@
       </widget>
       <widget class="QWidget" name="viptab">
        <attribute name="title">
-        <string>会员注册</string>
+        <string>会员注册/续期</string>
        </attribute>
        <layout class="QFormLayout" name="formLayout">
-        <property name="labelAlignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_2">
+         <widget class="QLabel" name="label">
           <property name="text">
-           <string>姓    名*</string>
+           <string>卡    号</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>姓    名</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="lineEdit"/>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="vipreg_name_input"/>
         </item>
-        <item row="1" column="0">
+        <item row="3" column="0">
          <widget class="QLabel" name="label_3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>电话号码 </string>
           </property>
@@ -187,17 +203,10 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="lineEdit_2"/>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="vipreg_tel_input"/>
         </item>
-        <item row="3" column="0" colspan="2">
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>（标 * 的为必填项目）</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" colspan="2">
+        <item row="4" column="0" colspan="2">
          <spacer name="horizontalSpacer_2">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -209,6 +218,54 @@
            </size>
           </property>
          </spacer>
+        </item>
+        <item row="5" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="vipreg_submit_button">
+            <property name="text">
+             <string>提交</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="vipreg_clear_button">
+            <property name="text">
+             <string>全部清空</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>（若为续期会员，该项必填！）</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QSpinBox" name="vipreg_cardid_input">
+          <property name="buttonSymbols">
+           <enum>QAbstractSpinBox::NoButtons</enum>
+          </property>
+          <property name="maximum">
+           <number>999999999</number>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -250,6 +307,19 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>tabwidget</tabstop>
+  <tabstop>trans_table</tabstop>
+  <tabstop>is_vip_checkbox</tabstop>
+  <tabstop>add_item_button</tabstop>
+  <tabstop>remove_selected_button</tabstop>
+  <tabstop>clear_button</tabstop>
+  <tabstop>submit_button</tabstop>
+  <tabstop>vipreg_cardid_input</tabstop>
+  <tabstop>vipreg_name_input</tabstop>
+  <tabstop>vipreg_tel_input</tabstop>
+  <tabstop>vipreg_submit_button</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

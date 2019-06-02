@@ -132,12 +132,16 @@ class ShiftsDao(UpdatableBaseMySQLDao):
         '''
         value = (id_,)
         with self._conn.cursor() as cur:
-            if cur.execute(insert_sql, value) != 1:
-                self._conn.rollback()
-                return None
-            cur.execute(select_sql, value)
-            ret = cur.fetchone()[0]
-            self._conn.commit()
+            try:
+                if cur.execute(insert_sql, value) != 1:
+                    self._conn.rollback()
+                    return None
+                cur.execute(select_sql, value)
+                ret = cur.fetchone()[0]
+                self._conn.commit()
+            except Exception as e:
+                self._conn.rollbacke()
+                raise e
         return ret
 
     def get_current_login_start_time(self, employee_id: int, dbcursor=None)     \
@@ -251,12 +255,16 @@ class ShiftsDao(UpdatableBaseMySQLDao):
             Rows updated.
         '''
         with self._conn.cursor() as cur:
-            ret = cur.execute(f'''
-                update `{self._table}` set
-                    `end_time` = utc_timestamp()
-                where `end_time` is null
-            ''')
-            self._conn.commit()
+            try:
+                ret = cur.execute(f'''
+                    update `{self._table}` set
+                        `end_time` = utc_timestamp()
+                    where `end_time` is null
+                ''')
+                self._conn.commit()
+            except Exception as e:
+                self._conn.rollback()
+                raise e
         return ret
 
     def get_all_by_emploee_id(self, employee_id: int)                           \
@@ -281,7 +289,11 @@ class ShiftsDao(UpdatableBaseMySQLDao):
         '''
         value = (employee_id,)
         with self._conn.cursor() as cur:
-            cur.execute(sql, value)
-            ret = [row for row in cur]
-            self._conn.commit()
+            try:
+                cur.execute(sql, value)
+                ret = [row for row in cur]
+                self._conn.commit()
+            except Exception as e:
+                self._conn.rollback()
+                raise e
         return ret

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import toml
-from PyQt5 import QtWidgets
+from PyQt5 import QtCore, QtWidgets
 
 CONFIG = toml.load('config/client.toml')
 

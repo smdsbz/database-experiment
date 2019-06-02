@@ -8,6 +8,8 @@
 
 [initial-data]
 
+#### Employee ####
+
 [[initial-data.Jobs]]
     id = 1
     name = '管理员'
@@ -22,15 +24,17 @@
     id = 1
     login = 'root'
     passwd = 'e10adc3949ba59abbe56e057f20f883e'     # md5-hash for '123456'
-    job = 1
+    job = 1     # 管理员
     tel = '13088889999'
 
 [[initial-data.Employee]]
     id = 2
     login = 'pukei-pukei'
     passwd = '3ae63f4d208574786fff5ac94625f296'     # 'gongjizhu'
-    job = 2
+    job = 2     # 收银员
     tel = '13322223333'
+
+#### Merchandise ####
 
 [[initial-data.Merchandise]]
     id = 1      # NOTE 1 is the smallest value for an auto_increment column
@@ -56,8 +60,15 @@
     price = 19.99
     # count = NULL
 
+#### VIP Costomer ####
+
 [[initial-data.VIP]]
     id = 1
-    date = '2019-06-01'
+    date = '2018-05-01'
     name = '恐暴龙'
     # tel = NULL
+
+[[initial-data.VIPTransRecord]]
+    vip_id = 1      # 恐暴龙
+    start_date = '2018-05-01'
+    acc_consume = 1_0001.00

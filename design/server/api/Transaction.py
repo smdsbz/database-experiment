@@ -5,16 +5,17 @@ from flask_restful import Resource
 from flask_restful import abort
 import decimal as D
 
-from db import MerchandiseDao, TransactionDao, TransDetailDao, EmployeeDao, ShiftsDao
+from db import MerchandiseDao, TransactionDao, TransDetailDao, EmployeeDao
+from db import ShiftsDao, VIPTransRecordDao
 from .Auth import auth
 
-D.getcontext().prec = 2
 
 merch_dao  = MerchandiseDao()
 trans_dao  = TransactionDao()
 detail_dao = TransDetailDao()
 employ_dao = EmployeeDao()
 shift_dao  = ShiftsDao()
+viprec_dao = VIPTransRecordDao()
 
 
 class TransactionApi(Resource):
@@ -53,7 +54,7 @@ class TransactionApi(Resource):
                 'time': row[1].strftime('%Y-%m-%d %H:%M:%S'),
                 'cashier_id': row[2],
                 'cashier_login': row[3],
-                'sum': str(row[4])
+                'sum': float(row[4])
             }
             for row in result
         ], 200
@@ -64,9 +65,10 @@ class TransactionApi(Resource):
         JSON data format:
 
             {
-                'cashier': cashier_id,
+                'vip_id': vip_id or None
+                'cashier': cashier_id: int,
                 'trans': [
-                    [merch_id, actual_price, count],
+                    [merch_id: int, actual_price: float, count: int],
                     ...
                 ]
             }
@@ -77,6 +79,7 @@ class TransactionApi(Resource):
                 'reason': 'cashier, trans data must be given!'
             }, 406
         cashier, trans_items = data['cashier'], data['trans']
+        vip_id = data['vip_id'] if 'vip_id' in data else None
         if not employ_dao.has_id(cashier):
             return {
                 'reason': f'Cashier ID {cashier} is illegal!'
@@ -99,12 +102,12 @@ class TransactionApi(Resource):
                                 'merch_id': merch_id,
                                 'reason': 'Illegal ID'
                             }, 406
-                        elif ret == 1:
+                        if ret == 1:
                             return {
                                 'merch_id': merch_id,
                                 'reason': 'Not enough in storage'
                             }, 406
-                        elif ret == 2:
+                        if ret == 2:
                             return {
                                 'merch_id': merch_id,
                                 'reason': 'UPDATE finished with error'
@@ -115,11 +118,29 @@ class TransactionApi(Resource):
                     conn.rollback()
                     abort(500, message='Error occured while filling '
                                         'transaction details!')
-                # update shift sum
+                # get sum of current transaction
                 trans_sum = detail_dao.get_sum(trans_id, cur)
                 if trans_sum is None:
                     conn.rollback()
                     abort(500)
+                # update VIP card info
+                if vip_id is not None:
+                    ret = viprec_dao.transact_cb(vip_id, trans_sum, cur)
+                    if ret != 0 and ret != 1:
+                        conn.rollback()
+                        if ret == -1:
+                            return {
+                                'vip_id': vip_id,
+                                'reason': 'Invalid VIP ID'
+                            }, 406
+                        if ret == 2:
+                            return {
+                                'vip_id': vip_id,
+                                'reason': 'VIP card timeout'
+                            }, 406
+                        abort(500, message='Unknown error at VIPTransRecordDao'
+                                            f'.transact_db(): {ret}.')
+                # update shifts info
                 if shift_dao.transact_cb(cashier, trans_sum, cur):
                     conn.rollback()
                     return {

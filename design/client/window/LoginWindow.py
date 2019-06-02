@@ -54,7 +54,7 @@ class LoginWindow(W.QDialog):
             ret = W.QMessageBox.critical(self, '错误', '服务端通信协议升级，请更新您的客户端！')
             return
         employee_id, role = ret['employee_id'], ret['role']
-        print(f'Successfully logged-in as {user} ({employee_id}, {role})!')
+        # print(f'Successfully logged-in as {user} ({employee_id}, {role})!')
         if role == 'admin':
             self.next_window = AdminWindow()
         elif role == 'common':

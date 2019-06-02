@@ -98,4 +98,4 @@ class AuthApi(Resource):
 
     @auth.login_required
     def post(self):
-        abort(500, message='Not implemented yet!')
+        abort(500, message='Use admin client!')

@@ -54,6 +54,29 @@ class EmployeeListApi(Resource):
             for row in ret
         ], 200
 
+    @auth.login_required
+    def post(self):
+        '''
+        JSON data format:
+
+            {
+                'login': str,
+                'passwd': str (MD5 hashed),
+                'job': int (job_id),
+                'tel': str
+            }
+        '''
+        data = request.get_json()
+        if ('login' not in data) or ('passwd' not in data)                      \
+                or ('job' not in data) or ('tel' not in data):
+            return 'Data incomplete', 406
+        try:
+            ret = employ_dao.insert(**data)
+            assert ret == 1
+        except Exception as e:
+            abort(500, message=str(e))
+        return '', 200
+
 
 class ShiftsApi(Resource):
     @auth.login_required
@@ -67,6 +90,22 @@ class ShiftsApi(Resource):
                 'start': row[0].strftime('%Y-%m-%d %H:%M:%S'),
                 'end': row[1].strftime('%Y-%m-%d %H:%M:%S') if row[1] is not None else None,
                 'sum': float(row[2])
+            }
+            for row in ret
+        ], 200
+
+
+class JobsListApi(Resource):
+    @auth.login_required
+    def get(self):
+        try:
+            ret = job_dao.select('id', 'name')
+        except Exception as e:
+            abort(500, message=str(e))
+        return [
+            {
+                'job_id': row[0],
+                'name': row[1]
             }
             for row in ret
         ], 200

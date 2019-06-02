@@ -5,3 +5,4 @@
 
 [transaction]
     vip-discount = 0.8
+    vip-give-away-valve = 300.00

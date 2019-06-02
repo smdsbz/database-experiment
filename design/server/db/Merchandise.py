@@ -68,9 +68,13 @@ class MerchandiseDao(UpdatableBaseMySQLDao):
         else:
             value = (start,)
         with self._conn.cursor() as cur:
-            cur.execute(sql, value)
-            result = [row for row in cur]
-            self._conn.commit()
+            try:
+                cur.execute(sql, value)
+                result = [row for row in cur]
+                self._conn.commit()
+            except Exception as e:
+                self._conn.rollback()
+                raise e
         return result
 
     def get_by_name_fuzzy(self, name: str)                                      \
@@ -95,9 +99,13 @@ class MerchandiseDao(UpdatableBaseMySQLDao):
         '''
         value = (f'%{name}%',)
         with self._conn.cursor() as cur:
-            cur.execute(sql, value)
-            result = [row for row in cur]
-            self._conn.commit()
+            try:
+                cur.execute(sql, value)
+                result = [row for row in cur]
+                self._conn.commit()
+            except Exception as e:
+                self._conn.rollback()
+                raise e
         return result
 
     @property

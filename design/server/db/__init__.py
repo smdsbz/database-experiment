@@ -7,6 +7,7 @@ from typing import List, Tuple, Dict, Union, Any
 
 import toml
 DBCONFIG = toml.load('config/db_dev.toml')
+RULES = toml.load('config/rules.toml')
 
 
 class BaseMySQLDao:
@@ -213,10 +214,11 @@ class UpdatableBaseMySQLDao(BaseMySQLDao):
 from .Merchandise import MerchandiseDao
 from .Employee import JobsDao, EmployeeDao, ShiftsDao
 from .Transaction import TransactionDao, TransDetailDao
+from .VIP import VIPDao, VIPTransRecordDao
 
 __all__ = [
-    'DBCONFIG'
+    'DBCONFIG', 'RULES'
     'BaseMySQLDao', 'UpdatableBaseMySQLDao',
     'MerchandiseDao', 'JobsDao', 'EmployeeDao', 'ShiftsDao',
-    'TransactionDao', 'TransDetailDao'
+    'TransactionDao', 'TransDetailDao', 'VIPDao', 'VIPTransRecordDao'
 ]

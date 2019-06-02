@@ -16,7 +16,7 @@ api = Api(app)
 
 api.add_resource(
     MerchandiseApi,
-    '/api/query/merchandise/<int:id_>'                  # GET, DELETE, PUT
+    '/api/query/merchandise/<int:id_>'                  # GET, DELETE, PUT (update)
 )
 api.add_resource(
     MerchandiseByNameApi,
@@ -25,7 +25,7 @@ api.add_resource(
 api.add_resource(
     MerchandiseListApi,
     '/api/list/merchandise/<int:start>/<int:count>',    # GET
-    '/api/update/merchandise'                           # POST
+    '/api/list/merchandise'                             # POST (insert)
 )
 api.add_resource(
     TransactionApi,
@@ -40,15 +40,29 @@ api.add_resource(
     AuthApi,
     '/api/auth/login/<user>/<passwd_md5>',              # GET
     '/api/auth/logout/<user>',                          # DELETE
-    '/api/auth/signup'                                  # POST (not implemented)
+    # '/api/auth/signup'                                  # POST (not implemented)
 )
 api.add_resource(
     EmployeeListApi,
-    '/api/list/employee/<int:start>/<int:count>'        # GET
+    '/api/list/employee/<int:start>/<int:count>',       # GET
+    '/api/list/employee'                                # POST (insert)
 )
 api.add_resource(
     ShiftsApi,
     '/api/query/shifts/<int:employee_id>'               # GET
+)
+api.add_resource(
+    JobsListApi,
+    '/api/list/jobs'                                    # GET
+)
+api.add_resource(
+    VIPListApi,
+    '/api/list/vip/<int:start>/<int:count>',            # GET
+    '/api/list/vip'                                     # PUT
+)
+api.add_resource(
+    VIPTransRecordApi,
+    '/api/query/vip-trans-record/<int:vip_id>'          # GET
 )
 
 if __name__ == '__main__':

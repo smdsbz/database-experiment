@@ -98,7 +98,7 @@ class TransDetailDao(BaseMySQLDao):
                 select sum(`price` * `count`) from `{self._table}`
                 where `trans_id` = %s
             ''', (trans_id,))
-            ret = [row[0] for row in dbcursor]
+            ret = [float(row[0]) for row in dbcursor]
         if not ret:
             return None
         return ret[0]

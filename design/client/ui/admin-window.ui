@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>821</width>
-    <height>511</height>
+    <height>518</height>
    </rect>
   </property>
   <property name="font">
@@ -382,6 +382,98 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>VIP 用户信息</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0">
+         <widget class="QTreeWidget" name="vip_tree">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <column>
+           <property name="text">
+            <string>VIP 用户 ID</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>VIP 卡发放日期</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>用户姓名</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>累计消费统计起始日期</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>累计消费</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>联系方式</string>
+           </property>
+           <property name="font">
+            <font>
+             <family>宋体</family>
+            </font>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -421,6 +513,7 @@
      <addaction name="refresh_merch_action"/>
      <addaction name="refresh_employee_action"/>
      <addaction name="refresh_trans_action"/>
+     <addaction name="refresh_vip_action"/>
      <addaction name="separator"/>
      <addaction name="refresh_all_action"/>
     </widget>
@@ -428,25 +521,20 @@
     <addaction name="separator"/>
     <addaction name="exit_action"/>
    </widget>
-   <widget class="QMenu" name="help_menu">
+   <widget class="QMenu" name="insert_menu">
     <property name="font">
      <font>
       <family>宋体</family>
      </font>
     </property>
     <property name="title">
-     <string>帮助</string>
+     <string>添加</string>
     </property>
-    <addaction name="about_action"/>
-   </widget>
-   <widget class="QMenu" name="query_menu">
-    <property name="title">
-     <string>查询</string>
-    </property>
+    <addaction name="insert_merch_action"/>
+    <addaction name="insert_employee_action"/>
    </widget>
    <addaction name="file_menu"/>
-   <addaction name="query_menu"/>
-   <addaction name="help_menu"/>
+   <addaction name="insert_menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="font">
@@ -514,6 +602,36 @@
   <action name="refresh_all_action">
    <property name="text">
     <string>全部刷新</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>宋体</family>
+    </font>
+   </property>
+  </action>
+  <action name="refresh_vip_action">
+   <property name="text">
+    <string>刷新 VIP 用户信息</string>
+   </property>
+  </action>
+  <action name="action_Microsoft_PowerPoint_pptx">
+   <property name="text">
+    <string>新建</string>
+   </property>
+  </action>
+  <action name="insert_merch_action">
+   <property name="text">
+    <string>添加商品</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>宋体</family>
+    </font>
+   </property>
+  </action>
+  <action name="insert_employee_action">
+   <property name="text">
+    <string>添加店员</string>
    </property>
    <property name="font">
     <font>

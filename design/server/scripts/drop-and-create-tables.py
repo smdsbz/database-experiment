@@ -143,7 +143,7 @@ with conn.cursor() as cur:
         for data in datas:
             cols = data.keys()
             cur.execute(f'''
-                insert into {table}
+                insert into `{table}`
                 ({','.join(f'`{col}`' for col in cols)}) values
                 ({','.join('%s' for _ in cols)})
             ''', tuple(data[col] for col in cols))
