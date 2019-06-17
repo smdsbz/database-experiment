@@ -23,12 +23,13 @@
 
 0. 进入源码目录 `src/`。
 1. 手动在 MySQL 中创建数据库，并更新 `config/db.toml` 中数据库名称及其他各项设置。
-2. （在源码根目录 `src/` 下）运行脚本 `scripts/drop-and-create-tables.py`，创建数据表结构及服务运行所有依赖的触发器等。
-3. TODO
+2. （在服务端源码根目录 `server/` 下）运行脚本 `scripts/drop-and-create-tables.py`，创建数据表结构并注入 `config/*.toml` 中描述的数据。
+3. `python app.py` 启动服务端。
+4. `python app.py` 启动客户端。
 
 #### 测试
 
-所有单元测试都位于 `src/test/` 中，使用命令
+所有单元测试都位于 `server/test/` 中，使用命令
 
 ```console
 $ python -m unittest test.[PKG] -v
