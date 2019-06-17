@@ -281,4 +281,3 @@ class SellerWindow(W.QMainWindow):
         except Exception as e:
             ret = qmessage_critical_with_detail('连接错误', '无法从服务端注销！', str(e), self)
         return super().closeEvent(evt)
-

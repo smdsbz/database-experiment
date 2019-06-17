@@ -44,19 +44,19 @@
 
 [[initial-data.Merchandise]]
     id = 2
-    name = '雌火龙的红玉'
+    name = '翡翠'
     price = 8000.00
     count = 3
 
 [[initial-data.Merchandise]]
     id = 3
-    name = '攻击珠'
+    name = '大礼包'
     price = 200.00
     count = 2
 
 [[initial-data.Merchandise]]
     id = 4
-    name = '攻击 UP · 大'
+    name = '翡翠饺子'
     price = 19.99
     # count = NULL
 
@@ -65,10 +65,10 @@
 [[initial-data.VIP]]
     id = 1
     date = '2018-05-01'
-    name = '恐暴龙'
+    name = 'cxk'
     # tel = NULL
 
 [[initial-data.VIPTransRecord]]
-    vip_id = 1      # 恐暴龙
+    vip_id = 1      # cxk
     start_date = '2018-05-01'
     acc_consume = 1_0001.00
